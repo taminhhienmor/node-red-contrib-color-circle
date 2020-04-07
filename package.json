@@ -1,0 +1,29 @@
+{
+  "name": "node-red-contrib-color-circle",
+  "version": "0.0.2",
+  "author": "minh hien <taminhhien.mor.vn@gmail.com>",
+  "description": "The simplest of simple nodes with color circle",
+  "dependencies": {
+    "request": "^2.88.0"
+  },
+  "keywords": [
+    "node-red",
+    "color",
+    "color-circle"
+  ],
+  "node-red": {
+    "nodes": {
+      "addFirebase": "source/colorCircle.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taminhhienmor/node-red-contrib-color-circle"
+  },
+  "maintainers": [
+    {
+      "name": "minh hien",
+      "email": "taminhhien.mor.vn@gmail.com"
+    }
+  ]
+}

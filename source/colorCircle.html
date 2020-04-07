@@ -1,0 +1,48 @@
+<script type="text/x-red" data-template-name="colorCircle">
+    <div class="form-row">
+        <label for="node-input-property"><i class="fa fa-tag"></i> Value</label>
+        <input type="text" id="node-input-property">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="colorCircle">
+    <p>Color Circle</p>
+    <p>Input Parameters:
+        <ul>
+            <li><b>Value</b> - The range value is 0 ~ 1.0 <b>Value</b> property or the <code>msg.[name]</code> property</li>
+            <li><b>gain</b> - The value of gain. The default value of gain is 10. The gain is taken from the <code>msg.gain</code> property</li>
+            <li><b>offset_x</b> - The value of offset_x. The default value of offset_x is 0.2. The gain is taken from the <code>msg.offset_x</code> property</li>
+            <li><b>offset_green</b> - The value of offset_green. The default value of offset_x is 0.6. The gain is taken from the <code>msg.offset_green</code> property</li>
+        </ul>
+    </p>
+    <p>Return values:
+        <ul>
+            <li><b>payload</b> Will either be details for color or provide an error state</li>
+        </ul>
+    </p>
+</script>
+
+
+<script type="text/javascript">
+    RED.nodes.registerType('colorCircle',{
+        category: 'Color',
+        color:"#C0DEED",
+        defaults: {
+            property: { value: "", validate: RED.validators.typedInput("propertyType") },
+            propertyType: { value: "str" }
+        },
+        inputs:1,
+        outputs:1,
+        icon: "color-wheel.png",
+        align: "left",
+        label: 'Color Circle',
+        paletteLabel: 'Color Circle',
+        oneditprepare: function () {
+            $("#node-input-property").typedInput({ default: this.propertyType || 'str', types: ['str', 'msg', 'flow', 'global'] });
+        },
+        oneditsave: function () {
+            this.propertyType = $("#node-input-property").typedInput('type');
+        }
+    });
+</script>
+
