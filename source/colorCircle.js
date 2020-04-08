@@ -1,55 +1,40 @@
 module.exports = function (RED) {
 	"use strict";
 
-	var gain, offset_x, offset_green;
-		gain = 10
-		offset_x= 0.2
-		offset_green = 0.6
-
 	function colorCircle(n) {
 		RED.nodes.createNode(this, n);
 		this.box = RED.nodes.getNode(n.box);
 		var node = this;
 
-		var propertyType = n.propertyType || "msg";
-		var property = n.property;
-		var globalContext = this.context().global;
-		var flowContext = this.context().flow; 
+		var valuetype = n.valuetype || "msg";
+		var valueproperty = n.valueproperty;
+		
+		var gaintype = n.gaintype || "msg";
+		var gainproperty = n.gainproperty;
+		
+		var offsetxtype = n.offsetxtype || "msg";
+		var offsetxproperty = n.offsetxproperty;
+		
+		var offsetgreentype = n.offsetgreentype || "msg";
+		var offsetgreenproperty = n.offsetgreenproperty;
 		
 		node.on("input", function (msg) {
 			node.status({});
 
-			if(msg.gain) gain = msg.gain
-			if(msg.offset_x) offset_x = msg.offset_x
-			if(msg.offset_green) offset_green = msg.offset_green
-
-			var value = ""
-			if(property == "") {
-				node.error(RED._("Value is not empty"),msg)
+			if(valueproperty == "") {
+				node.error(RED._("Value can't empty"),msg)
 				node.status({fill:"red",shape:"ring",text:"Error. Empty value"});        
 				return;
 			}
-			switch (propertyType) {
-				case "str":
-					value = property
-					break;
-				case "msg":
-					value = msg[property]
-					break;
-				case "flow":
-					value = flowContext.get(property)
-					break;
-				case "global":
-					value = globalContext.get(property)
-					break;
-				default:
-					value = property
-					break;
-			}
-			value = parseInt(value);
+
+			var value = getValueProperty(valuetype, valueproperty, this)
+			var gain = getValueProperty(gaintype, gainproperty, this) || 10
+			var offset_x = getValueProperty(offsetxtype, offsetxproperty, this) || 0.2
+			var offset_green = getValueProperty(offsetgreentype, offsetgreenproperty, this) || 0.6
+			
 
 			if(0 <= value && value <= 1) {
-				msg.payload = colorBarRGB(value);
+				msg.payload = colorBarRGB(value, gain, offset_x, offset_green);
 				node.send(msg);    
 			} else {
 				node.error(RED._("Out of range. Please input value in 0 ~ 1.0"),msg)
@@ -63,7 +48,7 @@ module.exports = function (RED) {
 	    return ((Math.tanh(((x+offset_x)*gain)/2)+1)/2)
 	}
 
-	function colorBarRGB(x) {
+	function colorBarRGB(x, gain, offset_x, offset_green) {
 	    var red, blue, green;
 	    x = (x * 2) - 1;
 	    red = sigmoid(x, gain, -1*offset_x);
@@ -71,6 +56,30 @@ module.exports = function (RED) {
 	    green = sigmoid(x, gain, offset_green) + (1-sigmoid(x,gain,-1*offset_green));
 	    green = green - 1.0;
 	    return [parseInt(red*256), parseInt(green*256), parseInt(blue*256)];
+	}
+
+	function getValueProperty(valuetype, valueproperty, that) {
+		var value = ""
+		var globalContext = that.context().global;
+		var flowContext = that.context().flow;
+		switch (valuetype) {
+			case "str":
+				value = valueproperty
+				break;
+			case "msg":
+				value = msg[valueproperty]
+				break;
+			case "flow":
+				value = flowContext.get(valueproperty)
+				break;
+			case "global":
+				value = globalContext.get(valueproperty)
+				break;
+			default:
+				value = valueproperty
+				break;
+		}
+		return parseFloat(value)
 	}
 
 	RED.nodes.registerType("colorCircle", colorCircle);

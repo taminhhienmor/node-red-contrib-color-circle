@@ -1,7 +1,19 @@
 <script type="text/x-red" data-template-name="colorCircle">
     <div class="form-row">
-        <label for="node-input-property"><i class="fa fa-tag"></i> Value</label>
-        <input type="text" id="node-input-property">
+        <label for="node-input-valueproperty"><i class="fa fa-tag"></i> Value</label>
+        <input type="text" id="node-input-valueproperty">
+    </div>
+    <div class="form-row">
+        <label for="node-input-gainproperty"><i class="fa fa-tag"></i> Gain</label>
+        <input type="text" id="node-input-gainproperty">
+    </div>
+    <div class="form-row">
+        <label for="node-input-offsetxproperty"><i class="fa fa-tag"></i> Offset X</label>
+        <input type="text" id="node-input-offsetxproperty">
+    </div>
+    <div class="form-row">
+        <label for="node-input-offsetgreenproperty"><i class="fa fa-tag"></i> Offset Green</label>
+        <input type="text" id="node-input-offsetgreenproperty">
     </div>
 </script>
 
@@ -28,8 +40,14 @@
         category: 'Color',
         color:"#C0DEED",
         defaults: {
-            property: { value: "", validate: RED.validators.typedInput("propertyType") },
-            propertyType: { value: "str" }
+            valueproperty: { value: "", validate: RED.validators.typedInput("valuetype"), require:true },
+            valuetype: { value: "str" },
+            gainproperty: { value: "10", validate: RED.validators.typedInput("gaintype"), require:true },
+            gaintype: { value: "str" },
+            offsetxproperty: { value: "0.2", validate: RED.validators.typedInput("offsetxtype"), require:true },
+            offsetxtype: { value: "str" },
+            offsetgreenproperty: { value: "0.6", validate: RED.validators.typedInput("offsetgreentype"), require:true },
+            offsetgreentype: { value: "str" },
         },
         inputs:1,
         outputs:1,
@@ -38,10 +56,16 @@
         label: 'Color Circle',
         paletteLabel: 'Color Circle',
         oneditprepare: function () {
-            $("#node-input-property").typedInput({ default: this.propertyType || 'str', types: ['str', 'msg', 'flow', 'global'] });
+            $("#node-input-valueproperty").typedInput({ default: this.valuetype || 'str', types: ['str', 'msg', 'flow', 'global'] });
+            $("#node-input-gainproperty").typedInput({ default: this.gaintype || 'str', types: ['str', 'msg', 'flow', 'global'] });
+            $("#node-input-offsetxproperty").typedInput({ default: this.offsetxtype || 'str', types: ['str', 'msg', 'flow', 'global'] });
+            $("#node-input-offsetgreenproperty").typedInput({ default: this.offsetgreentype || 'str', types: ['str', 'msg', 'flow', 'global'] });
         },
         oneditsave: function () {
-            this.propertyType = $("#node-input-property").typedInput('type');
+            this.valuetype = $("#node-input-valueproperty").typedInput('type');
+            this.gaintype = $("#node-input-gainproperty").typedInput('type');
+            this.offsetxtype = $("#node-input-offsetxproperty").typedInput('type');
+            this.offsetgreentype = $("#node-input-offsetgreenproperty").typedInput('type');
         }
     });
 </script>
