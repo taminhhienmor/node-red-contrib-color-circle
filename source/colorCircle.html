@@ -41,13 +41,13 @@
         color:"#C0DEED",
         defaults: {
             valueproperty: { value: "", validate: RED.validators.typedInput("valuetype"), require:true },
-            valuetype: { value: "str" },
+            valuetype: { value: "num" },
             gainproperty: { value: "10", validate: RED.validators.typedInput("gaintype"), require:true },
-            gaintype: { value: "str" },
+            gaintype: { value: "num" },
             offsetxproperty: { value: "0.2", validate: RED.validators.typedInput("offsetxtype"), require:true },
-            offsetxtype: { value: "str" },
+            offsetxtype: { value: "num" },
             offsetgreenproperty: { value: "0.6", validate: RED.validators.typedInput("offsetgreentype"), require:true },
-            offsetgreentype: { value: "str" },
+            offsetgreentype: { value: "num" },
         },
         inputs:1,
         outputs:1,
@@ -56,10 +56,10 @@
         label: 'Color Circle',
         paletteLabel: 'Color Circle',
         oneditprepare: function () {
-            $("#node-input-valueproperty").typedInput({ default: this.valuetype || 'str', types: ['str', 'msg', 'flow', 'global'] });
-            $("#node-input-gainproperty").typedInput({ default: this.gaintype || 'str', types: ['str', 'msg', 'flow', 'global'] });
-            $("#node-input-offsetxproperty").typedInput({ default: this.offsetxtype || 'str', types: ['str', 'msg', 'flow', 'global'] });
-            $("#node-input-offsetgreenproperty").typedInput({ default: this.offsetgreentype || 'str', types: ['str', 'msg', 'flow', 'global'] });
+            $("#node-input-valueproperty").typedInput({ default: this.valuetype || 'num', types: ['num', 'msg', 'flow', 'global'] });
+            $("#node-input-gainproperty").typedInput({ default: this.gaintype || 'num', types: ['num', 'msg', 'flow', 'global'] });
+            $("#node-input-offsetxproperty").typedInput({ default: this.offsetxtype || 'num', types: ['num', 'msg', 'flow', 'global'] });
+            $("#node-input-offsetgreenproperty").typedInput({ default: this.offsetgreentype || 'num', types: ['num', 'msg', 'flow', 'global'] });
         },
         oneditsave: function () {
             this.valuetype = $("#node-input-valueproperty").typedInput('type');

@@ -15,7 +15,10 @@ Color Circle
         <li><b>payload</b> Will either be details for color or provide an error state</li>
     </ul>
 </p>
-![colorCircle](https://cdn.jsdelivr.net/gh/taminhhienmor/node-red-contrib-color-circle/source/image/colorCircle.PNG)
+![colorCircle](https://cdn.jsdelivr.net/gh/taminhhienmor/node-red-contrib-color-circle/source/image/colorCircle2.PNG)
 ``` node
 [{"id":"27add2f7.f9d87e","type":"inject","z":"699aba61.1a36d4","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":200,"y":140,"wires":[["2363c183.e8b41e"]]},{"id":"5b72b364.e3fdac","type":"debug","z":"699aba61.1a36d4","name":"","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"false","x":710,"y":140,"wires":[]},{"id":"2363c183.e8b41e","type":"colorCircle","z":"699aba61.1a36d4","property":"1","propertyType":"str","x":470,"y":140,"wires":[["5b72b364.e3fdac"]]}]
 ```
+
+## Reference
+<a href="https://qiita.com/masato_ka/items/c178a53c51364703d70b">サーモグラフィ風の色変化をシグモイド関数で再現する</a>

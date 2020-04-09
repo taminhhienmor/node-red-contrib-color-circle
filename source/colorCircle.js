@@ -6,16 +6,16 @@ module.exports = function (RED) {
 		this.box = RED.nodes.getNode(n.box);
 		var node = this;
 
-		var valuetype = n.valuetype || "msg";
+		var valuetype = n.valuetype || "num";
 		var valueproperty = n.valueproperty;
 		
-		var gaintype = n.gaintype || "msg";
+		var gaintype = n.gaintype || "num";
 		var gainproperty = n.gainproperty;
 		
-		var offsetxtype = n.offsetxtype || "msg";
+		var offsetxtype = n.offsetxtype || "num";
 		var offsetxproperty = n.offsetxproperty;
 		
-		var offsetgreentype = n.offsetgreentype || "msg";
+		var offsetgreentype = n.offsetgreentype || "num";
 		var offsetgreenproperty = n.offsetgreenproperty;
 		
 		node.on("input", function (msg) {
@@ -27,10 +27,11 @@ module.exports = function (RED) {
 				return;
 			}
 
-			var value = getValueProperty(valuetype, valueproperty, this)
-			var gain = getValueProperty(gaintype, gainproperty, this) || 10
-			var offset_x = getValueProperty(offsetxtype, offsetxproperty, this) || 0.2
-			var offset_green = getValueProperty(offsetgreentype, offsetgreenproperty, this) || 0.6
+			
+			var value = getValueProperty(valuetype, valueproperty, this, msg)
+			var gain = getValueProperty(gaintype, gainproperty, this, msg) || 10
+			var offset_x = getValueProperty(offsetxtype, offsetxproperty, this, msg) || 0.2
+			var offset_green = getValueProperty(offsetgreentype, offsetgreenproperty, this, msg) || 0.6
 			
 
 			if(0 <= value && value <= 1) {
@@ -58,12 +59,12 @@ module.exports = function (RED) {
 	    return [parseInt(red*256), parseInt(green*256), parseInt(blue*256)];
 	}
 
-	function getValueProperty(valuetype, valueproperty, that) {
+	function getValueProperty(valuetype, valueproperty, that, msg) {
 		var value = ""
 		var globalContext = that.context().global;
 		var flowContext = that.context().flow;
 		switch (valuetype) {
-			case "str":
+			case "num":
 				value = valueproperty
 				break;
 			case "msg":
