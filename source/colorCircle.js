@@ -6,7 +6,7 @@ module.exports = function (RED) {
 		this.box = RED.nodes.getNode(n.box);
 		var node = this;
 
-		var valuetype = n.valuetype || "num";
+		var valuetype = n.valuetype || "msg";
 		var valueproperty = n.valueproperty;
 		
 		var gaintype = n.gaintype || "num";

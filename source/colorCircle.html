@@ -1,18 +1,18 @@
 <script type="text/x-red" data-template-name="colorCircle">
     <div class="form-row">
-        <label for="node-input-valueproperty"><i class="fa fa-tag"></i> Value</label>
+        <label for="node-input-valueproperty"><i class="fa fa-tag"></i> value</label>
         <input type="text" id="node-input-valueproperty">
     </div>
     <div class="form-row">
-        <label for="node-input-gainproperty"><i class="fa fa-tag"></i> Gain</label>
+        <label for="node-input-gainproperty"><i class="fa fa-tag"></i> gain</label>
         <input type="text" id="node-input-gainproperty">
     </div>
     <div class="form-row">
-        <label for="node-input-offsetxproperty"><i class="fa fa-tag"></i> Offset X</label>
+        <label for="node-input-offsetxproperty"><i class="fa fa-tag"></i> offset X</label>
         <input type="text" id="node-input-offsetxproperty">
     </div>
     <div class="form-row">
-        <label for="node-input-offsetgreenproperty"><i class="fa fa-tag"></i> Offset Green</label>
+        <label for="node-input-offsetgreenproperty"><i class="fa fa-tag"></i> offset green</label>
         <input type="text" id="node-input-offsetgreenproperty">
     </div>
 </script>
@@ -40,8 +40,8 @@
         category: 'Color',
         color:"#C0DEED",
         defaults: {
-            valueproperty: { value: "", validate: RED.validators.typedInput("valuetype"), require:true },
-            valuetype: { value: "num" },
+            valueproperty: { value: "payload", validate: RED.validators.typedInput("valuetype"), require:true },
+            valuetype: { value: "msg" },
             gainproperty: { value: "10", validate: RED.validators.typedInput("gaintype"), require:true },
             gaintype: { value: "num" },
             offsetxproperty: { value: "0.2", validate: RED.validators.typedInput("offsetxtype"), require:true },
@@ -56,7 +56,7 @@
         label: 'Color Circle',
         paletteLabel: 'Color Circle',
         oneditprepare: function () {
-            $("#node-input-valueproperty").typedInput({ default: this.valuetype || 'num', types: ['num', 'msg', 'flow', 'global'] });
+            $("#node-input-valueproperty").typedInput({ default: this.valuetype || 'msg', types: ['msg', 'num', 'flow', 'global'] });
             $("#node-input-gainproperty").typedInput({ default: this.gaintype || 'num', types: ['num', 'msg', 'flow', 'global'] });
             $("#node-input-offsetxproperty").typedInput({ default: this.offsetxtype || 'num', types: ['num', 'msg', 'flow', 'global'] });
             $("#node-input-offsetgreenproperty").typedInput({ default: this.offsetgreentype || 'num', types: ['num', 'msg', 'flow', 'global'] });
